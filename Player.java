@@ -15,6 +15,7 @@ class Player {
 	private PrintWriter out;
 	private boolean host;
 	private String name, pieceColour;
+	private Piece p;
 
 	public Player(Socket s, BufferedReader i, PrintWriter o, boolean h, String n, String p) {
 		/*
@@ -89,5 +90,30 @@ class Player {
 
 		*/
 		return host;
+	}
+
+	void disconnect() {
+		try {
+			clientSocket.close();
+			in.close();
+			out.close();
+		}
+		catch(Exception e) {} 
+	}
+
+	void setHost(boolean h) {
+		host = h;
+	}
+
+	void setColour(String c) {
+		pieceColour = c;
+	}
+
+	void setPiece(Piece piece) {
+		p = piece;
+	}
+
+	Piece getPiece() {
+		return p;
 	}
 }

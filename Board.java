@@ -1,5 +1,5 @@
 /*
-	Skeleton class: Board
+	Class: Board
 
 	ROLES: 
 		1. Keep track of all the pieces in the game. (Snakes, Ladders and player pieces.)
@@ -22,6 +22,9 @@ class Board {
 				and squares will be instantiated.
 
 		*/
+		rows = 10; cols = 10;
+		squares = new Square[rows][cols];
+		setupSquares();
 	}
 
 	public Board(int r, int c) {
@@ -33,6 +36,17 @@ class Board {
 				squares will be instantiated.
 
 		*/
+		rows = r; cols = c;
+		squares = new Square[rows][cols];
+		setupSquares();
+	}
+
+	void setupSquares() {
+		for(int i = 0; i < rows; i++) {
+			for(int j = 0; j < cols; j++) {
+				squares[i][j] = new Square(i, j);
+			}
+		}
 	}
 
 	boolean hasPiece(int x, int y) {
@@ -43,6 +57,15 @@ class Board {
 				Will return true if a playing piece is at squares[x][y]
 
 		*/
+		return squares[x][y].hasPiece();
+	}
+
+	boolean hasPiece(int x, int y, Piece p) {
+		return squares[x][y].hasPiece(p);
+	}
+
+	void removePiece(int x, int y, Piece p) {
+		squares[x][y].removePiece(p);
 	}
 
 	void setPiece(int x, int y, Piece p) {
@@ -53,6 +76,7 @@ class Board {
 				p will be at position [x][y] on the board.
 
 		*/
+		squares[x][y].setPiece(p);
 	}
 
 	void movePiece(int x, int y, Piece p) {
@@ -68,5 +92,26 @@ class Board {
 						current square and placed at [x][y]
 
 		*/
+		for(int i = 0; i < rows; i++) {
+			for(int j = 0; j < cols; j++) {
+				if(squares[i][j].hasPiece(p)) {
+					squares[i][j].removePiece(p);
+				}
+			}
+		}
+
+		squares[x][y].setPiece(p);
+	}
+
+	Square square(int row, int col) {
+		return squares[row][col];
+	}
+
+	int rows() {
+		return rows;
+	}
+
+	int cols() {
+		return cols;
 	}
 }

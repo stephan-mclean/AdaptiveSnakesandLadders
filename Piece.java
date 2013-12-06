@@ -1,5 +1,5 @@
 /*
-	Skeleton class: Piece
+	Class: Piece
 
 	ROLES:
 		1. Represent a players piece on the board or a snake or ladder
@@ -10,8 +10,9 @@
 	when the board is deleted.
 
 	NOTE: id is being used to match snakes & ladders with their counterpart.
+			Snakes have an id between 0 & 2
+			Ladders have an id between 3 & 5
 			For player pieces this field will be -1
-
 */
 
 class Piece {
@@ -25,6 +26,8 @@ class Piece {
 			Post-conditions: colour will be set to c and id will be set to -1
 
 		*/
+		colour = c;
+		id = -1;
 	}
 
 	public Piece(int i) {
@@ -34,6 +37,8 @@ class Piece {
 			Post-conditions: id will be set to i
 
 		*/
+		id = i;
+		colour = "";
 	}
 
 	String getColour() {
@@ -42,6 +47,7 @@ class Piece {
 
 			Post-conditions: colour will be returned.
 		*/
+		return colour;
 	}
 
 	int getId() {
@@ -50,5 +56,16 @@ class Piece {
 
 			Post-conditions: id will be returned.
 		*/
+		return id;
+	}
+
+	public boolean equals(Object obj) {
+		Piece p = (Piece) obj;
+		if(id != -1) {
+			return id == p.getId();
+		}
+		else {
+			return colour.equals(p.getColour());
+		}
 	}
 }
